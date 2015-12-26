@@ -4,6 +4,7 @@
  (let ((*package* (find-package :hu.dwim.sdl)))
    '(
      c-fun/rc
+     c-fun/not-null
 
      ))
  :hu.dwim.sdl)

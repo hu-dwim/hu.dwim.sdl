@@ -126,13 +126,6 @@
                                                      (:unix (:or "libSDL2_image-2.0.so.0" "libSDL2_image"))
                                                      (:windows "SDL2_image.dll")
                                                      (t (:default "libSDL2_image")))
-
-                              ;; TODO delme
-                              :c2ffi-executable "/home/alendvai/workspace/c2ffi/src/c2ffi"
-                              :trace-c2ffi t
-                              ;; TODO my llvm is not installed; or is it a c2ffi bug?
-                              :sys-include-paths ("/media/store/work/llvm-3.6/lib/clang/3.6.2/include/")
-
                               :include-sources ("SDL2/SDL_image\\.h$")
                               :exclude-sources :all
                               :include-definitions ()
