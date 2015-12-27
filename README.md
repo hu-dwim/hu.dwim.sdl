@@ -2,14 +2,15 @@
 
 ## What
 
-It's a Common Lisp FFI for http://libsdl.org/ (SDL2).
+It's a Common Lisp [FFI](https://en.wikipedia.org/wiki/Foreign_function_interface)
+for http://libsdl.org/ (SDL2).
 
 ## Why
 
 The other FFI bindings are partial, while this one already includes the
-CFFI bindings for the various subsystems of SDL2. Some of the competitors
-also depend on extra libraries while some may prefer to stick to using
-vanilla CFFI.
+[CFFI](https://github.com/cffi/cffi) bindings for the various subsystems
+of SDL2. Some of the competitors also depend on extra libraries while
+some may prefer to stick to using vanilla CFFI.
 
 ## Who
 
