@@ -31,3 +31,9 @@ users don't need to have c2ffi and the SDL dev headers installed.)
 2. It generates the needed CFFI forms into a temporary lisp file (in the
 ASDF fasl cache) and continues as if it was just another lisp file written
 by hand.
+
+## Status
+
+It's a young project and requires various, yet to be merged CFFI changes.
+There's not much extra lispy functionality added, but the CFFI binding part
+is complete, including the TTF, GFX, and IMG subsystems.
