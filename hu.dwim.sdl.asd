@@ -11,6 +11,9 @@
                :cffi-libffi)
   :components ((:file "package-stage-1"
                 :pathname "source/package-stage-1")
+               (:file "ffi-prelude"
+                :pathname "source/ffi-prelude"
+                :depends-on ("package-stage-1"))
                (:module "source"
                 :depends-on ("c2ffi-spec" "package-stage-1")
                 :serial t
@@ -18,7 +21,7 @@
                              (:file "package-stage-3")
                              (:file "sdl")))
                (:module "c2ffi-spec"
-                :depends-on ("package-stage-1")
+                :depends-on ("ffi-prelude")
                 :components ((:cffi/c2ffi-file "sdl.h"
                               :package #:hu.dwim.sdl.ffi
                               :ffi-name-transformer "hu.dwim.sdl::ffi-name-transformer"

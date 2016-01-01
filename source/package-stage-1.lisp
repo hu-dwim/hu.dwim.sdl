@@ -10,6 +10,7 @@
    )
 
   (:export
+   #:sdl-error
    ;; NOTE: it's not possible to re-export stuff from hu.dwim.sdl.ffi by directly referencing the symbols,
    ;; because that changes the behavior of cl:shadow and break things.
    ;; http://paste.lisp.org/+3D97
@@ -24,37 +25,4 @@
    ;; (22:15:13) stassats: right before the Examples section it lists the order
    ))
 
-(in-package :hu.dwim.sdl)
-
-(defun ffi-name-transformer (name kind &key &allow-other-keys)
-  (check-type name string)
-  #+nil
-  (cond
-    ((starts-with-subseq "SDL_" name)
-     (setf name (subseq name 4))
-     #+nil (setf name (cffi/c2ffi:maybe-camelcase-to-dash-separated name)))
-    #+nil
-    ((or (starts-with-subseq "IMG_" name)
-         (starts-with-subseq "TTF_" name))
-     (let ((prefix (subseq name 0 4))
-           (basename (subseq name 4)))
-       (when (cffi/c2ffi:camelcased? basename)
-         (setf name (concatenate 'string prefix
-                                 (cffi/c2ffi:camelcase-to-dash-separated basename)))))
-     (setf name (subseq name 4))))
-  (case kind
-    #+nil
-    ((:constant :member)
-     (format nil "+~A+" name))
-    (t name)))
-
-(defun ffi-type-transformer (type context &rest args &key &allow-other-keys)
-  (let ((type (apply 'cffi/c2ffi:default-ffi-type-transformer type context args)))
-    (cond
-      #+nil
-      ((equal context '(:struct "hci_dev_info" "name"))
-       (assert (equal type '(:array :char 8)))
-       ;; err, no, this dereferences a pointer
-       :string)
-      (t
-       type))))
+(defpackage :hu.dwim.sdl.ffi)
