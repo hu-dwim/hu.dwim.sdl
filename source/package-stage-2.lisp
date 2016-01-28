@@ -17,9 +17,4 @@
           (incf count))))
     count))
 
-(progn
-  ;; NOTE: the PROGN to marks that the order of these operations is important
-  (import-all-owned-symbols :hu.dwim.sdl.ffi :hu.dwim.sdl)
-  (shadowing-import '(hu.dwim.sdl.ffi::close
-                      hu.dwim.sdl.ffi::socket)
-                    :hu.dwim.sdl))
+(import-all-owned-symbols :hu.dwim.sdl.ffi :hu.dwim.sdl)
