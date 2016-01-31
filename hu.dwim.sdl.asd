@@ -4,10 +4,10 @@
   :license "BSD or Bugroff"
   :version "0.1"
 
-  :defsystem-depends-on (:cffi/c2ffi+cl-ppcre)
+  :defsystem-depends-on (:cffi/c2ffi)
   :depends-on (:alexandria
                :cffi
-               :cffi/c2ffi+cl-ppcre
+               :cffi/c2ffi
                :cffi-libffi)
   :components ((:file "package-stage-1"
                 :pathname "source/package-stage-1")
@@ -36,7 +36,7 @@
                               :exclude-sources :all
                               :include-definitions ("^u?int\\d+_t"
                                                     "size_t$"
-                                                    "strerror"
+                                                    "strerror$"
                                                     )
                               :exclude-definitions ("^LINE$"
                                                     "^SDL_LINE$"
@@ -50,10 +50,10 @@
   :license "BSD or Bugroff"
   :version "0.1"
 
-  :defsystem-depends-on (:cffi/c2ffi+cl-ppcre)
+  :defsystem-depends-on (:cffi/c2ffi)
   :depends-on (:alexandria
                :cffi
-               :cffi/c2ffi+cl-ppcre
+               :cffi/c2ffi
                :cffi-libffi
                :hu.dwim.sdl)
   :components ((:module "c2ffi-spec"
@@ -83,10 +83,10 @@
   :license "BSD or Bugroff"
   :version "0.1"
 
-  :defsystem-depends-on (:cffi/c2ffi+cl-ppcre)
+  :defsystem-depends-on (:cffi/c2ffi)
   :depends-on (:alexandria
                :cffi
-               :cffi/c2ffi+cl-ppcre
+               :cffi/c2ffi
                :cffi-libffi
                :hu.dwim.sdl)
   :components ((:module "c2ffi-spec"
@@ -113,10 +113,10 @@
   :license "BSD or Bugroff"
   :version "0.1"
 
-  :defsystem-depends-on (:cffi/c2ffi+cl-ppcre)
+  :defsystem-depends-on (:cffi/c2ffi)
   :depends-on (:alexandria
                :cffi
-               :cffi/c2ffi+cl-ppcre
+               :cffi/c2ffi
                :cffi-libffi
                :hu.dwim.sdl)
   :components ((:module "c2ffi-spec"
