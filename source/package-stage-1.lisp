@@ -1,11 +1,11 @@
-(defpackage :hu.dwim.sdl
+(uiop:define-package :hu.dwim.sdl
   (:use #:cl
         #:alexandria
         #:cffi)
   (:export
    #:sdl-error
-   ;; NOTE: it's not possible to re-export stuff from hu.dwim.sdl.ffi by directly referencing the symbols,
-   ;; because that changes the behavior of cl:shadow and break things.
+   ;; NOTE: it's not possible to re-export stuff from HU.DWIM.SDL.FFI by directly referencing the symbols,
+   ;; because that changes the behavior of CL:SHADOW and thus breaks things.
    ;; http://paste.lisp.org/+3D97
    ;; 2015-10-19 #sbcl
    ;; (22:12:53) Xof: "If it is accessible as an internal symbol via use-package, it is first imported into package, then exported."
@@ -18,4 +18,4 @@
    ;; (22:15:13) stassats: right before the Examples section it lists the order
    ))
 
-(defpackage :hu.dwim.sdl.ffi)
+(uiop:define-package :hu.dwim.sdl.ffi)
