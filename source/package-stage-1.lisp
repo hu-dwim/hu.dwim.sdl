@@ -18,4 +18,6 @@
    ;; (22:15:13) stassats: right before the Examples section it lists the order
    ))
 
-(uiop:define-package :hu.dwim.sdl.ffi)
+(uiop:define-package :hu.dwim.sdl.ffi
+  ;; We don't even want to :use COMMON-LISP here, to avoid any possible name clashes.
+  (:use))
