@@ -1,4 +1,4 @@
-(asdf:defsystem :hu.dwim.sdl
+(defsystem :hu.dwim.sdl
   :description "Common Lisp FFI wrapper for libSDL2."
   :author "Attila Lendvai"
   :license "BSD or Bugroff"
@@ -44,7 +44,7 @@
                                                     ;;"SDL_Log"
                                                     "^SDL_main$"))))))
 
-(asdf:defsystem :hu.dwim.sdl/gfx
+(defsystem :hu.dwim.sdl/gfx
   :description "Common Lisp FFI wrapper for libSDL2."
   :author "Attila Lendvai"
   :license "BSD or Bugroff"
@@ -77,7 +77,7 @@
                                                     ;;"^PRI[xX]"
                                                     ))))))
 
-(asdf:defsystem :hu.dwim.sdl/ttf
+(defsystem :hu.dwim.sdl/ttf
   :description "Common Lisp FFI wrapper for libSDL2."
   :author "Attila Lendvai"
   :license "BSD or Bugroff"
@@ -107,7 +107,7 @@
                                                     ;;"^PRI[xX]"
                                                     ))))))
 
-(asdf:defsystem :hu.dwim.sdl/image
+(defsystem :hu.dwim.sdl/image
   :description "Common Lisp FFI wrapper for libSDL2."
   :author "Attila Lendvai"
   :license "BSD or Bugroff"
