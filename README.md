@@ -13,8 +13,11 @@ of SDL2. It is also based on vanilla CFFI, without any extra dependencies.
 
 ## Who
 
-Written by [attila@lendvai.name](mailto:attila@lendvai.name). The primary
-communication channel is the facilities on
+Written by [attila@lendvai.name](mailto:attila@lendvai.name).
+
+## Where
+
+The primary communication channel is the facilities on
 [the project's GitHub page](https://github.com/attila-lendvai/hu.dwim.sdl).
 
 ## How
