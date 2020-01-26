@@ -26,7 +26,7 @@ The project uses [CFFI/C2FFI](https://github.com/cffi/cffi).
 Its ASDF extension does two things:
 
 1. If needed it can invoke [c2ffi](https://github.com/rpav/c2ffi) to process a C header file
-and emit a json spec file that contains every detail needed for a given platform
+and emit a c2ffi spec file (a json file) that contains every detail needed for a given platform
 to generate its FFI. Yours truely has run this phase and checked in the
 resulting spec files into the [c2ffi-spec/](c2ffi-spec/) directory, so that
 users don't need to have a working c2ffi executable and the SDL dev headers
@@ -39,5 +39,4 @@ could also be checked in the repo, but for now they are not.)
 ## Status
 
 It contains a complete FFI for ```sdl.h```, ```sdl-gfx.h```, ```sdl-ttf.h```, and ```sdl-image.h```.
-At the time of writing it requires a very recent CFFI.
-There's not much yet that lispify the API, but the CFFI binding part is complete.
+Not much has been added yet to lispify the SDL API, but the CFFI binding part is complete.
