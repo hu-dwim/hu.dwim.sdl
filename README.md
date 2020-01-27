@@ -7,9 +7,11 @@ for http://libsdl.org/ (SDL2).
 
 ## Why
 
-The alternative FFI bindings are partial, while this one already includes the
-[CFFI](https://github.com/cffi/cffi) bindings for the various subsystems
-of SDL2. It is also based on vanilla CFFI, without any extra dependencies.
+The alternative projects are partial, while this one uses
+[cffi/c2ffi](https://github.com/cffi/cffi) to automatically generate the
+CFFI bindings for the various subsystems of [SDL2](http://libsdl.org/).
+
+It only requires vanilla CFFI when used, no extra dependencies.
 
 ## Who
 
@@ -18,7 +20,7 @@ Written by [attila@lendvai.name](mailto:attila@lendvai.name).
 ## Where
 
 The primary communication channel is the facilities on
-[the project's GitHub page](https://github.com/attila-lendvai/hu.dwim.sdl).
+[the project's GitHub page](https://github.com/hu-dwim/hu.dwim.sdl).
 
 ## How
 
@@ -32,7 +34,7 @@ resulting spec files into the [c2ffi-spec/](c2ffi-spec/) directory, so that
 users don't need to have a working c2ffi executable and the SDL dev headers
 installed.
 
-2. It generates the needed CFFI forms into a lisp file next to the spec file
+2. Based on the spec file it generates the CFFI forms into a lisp file (placed next to the spec file)
 and continues as if it was just another lisp file written by hand. (These lisp files
 could also be checked in the repo, but for now they are not.)
 
