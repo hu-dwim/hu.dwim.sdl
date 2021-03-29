@@ -8,8 +8,9 @@ for http://libsdl.org/ (SDL2).
 ## Why
 
 The alternative projects are partial, while this one uses
-[cffi/c2ffi](https://github.com/cffi/cffi) to automatically generate the
-CFFI bindings for the various subsystems of [SDL2](http://libsdl.org/).
+[cffi/c2ffi](https://github.com/cffi/cffi) to automatically generate
+the complete CFFI bindings for the various subsystems of
+[SDL2](http://libsdl.org/).
 
 It only requires vanilla CFFI when used, no extra dependencies.
 
@@ -24,21 +25,24 @@ The primary communication channel is the facilities on
 
 ## How
 
-The project uses [CFFI/C2FFI](https://github.com/cffi/cffi).
-Its ASDF extension does two things:
+This project uses [CFFI/C2FFI](https://github.com/cffi/cffi), whose
+ASDF extension does two things:
 
-1. If needed it can invoke [c2ffi](https://github.com/rpav/c2ffi) to process a C header file
-and emit a c2ffi spec file (a json file) that contains every detail needed for a given platform
-to generate its FFI. Yours truely has run this phase and checked in the
-resulting spec files into the [c2ffi-spec/](c2ffi-spec/) directory, so that
-users don't need to have a working c2ffi executable and the SDL dev headers
-installed.
+1. When needed, it can invoke [c2ffi](https://github.com/rpav/c2ffi)
+to process a C header file and emit a c2ffi spec file (a json file)
+that contains every detail needed to generate an FFI for a given
+platform. But yours truely has run this phase, and checked in the
+resulting spec files into the [c2ffi-spec/](c2ffi-spec/)
+directory. This way users don't need to have a working c2ffi
+executable, nor the SDL dev headers installed.
 
-2. Based on the spec file it generates the CFFI forms into a lisp file (placed next to the spec file)
-and continues as if it was just another lisp file written by hand. (These lisp files
-could also be checked in the repo, but for now they are not.)
+2. Based on the above mentioned spec file, it generates the CFFI forms
+into a lisp file (placed next to the spec file), and continues as if
+it was just another lisp file written by hand. (These lisp files could
+also be committed into the repo, but for now they are not, because
+their regeneration is automatic and painless.)
 
 ## Status
 
-It contains a complete FFI for ```sdl.h```, ```sdl-gfx.h```, ```sdl-ttf.h```, and ```sdl-image.h```.
+It contains a complete FFI for `sdl.h`, `sdl-gfx.h`, `sdl-ttf.h`, and `sdl-image.h`.
 Not much has been added yet to lispify the SDL API, but the CFFI binding part is complete.
