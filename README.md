@@ -42,6 +42,30 @@ it was just another lisp file written by hand. (These lisp files could
 also be committed into the repo, but for now they are not, because
 their regeneration is automatic and painless.)
 
+### Regenerate the spec files
+
+This should only be done when the SDL API has some new functionality
+that is needed on the Lisp side. Once the `*.spec` files got
+regenerated, they should be pushed into the git repo; i.e. the users
+of `hu.dwim.sdl` shouldn't need to do this normally.
+
+#### On Debian
+
+This should work, assuming that you have a working `c2ffi` in the
+path:
+
+```
+sudo apt-get install curl sbcl libsdl2-dev
+rm -f c2ffi-spec/*.spec && ./bin/generate-spec-files.sh
+```
+
+#### On NixOS
+
+```
+$ nix-shell --pure
+$ rm -f c2ffi-spec/*.spec && ./bin/generate-spec-files.sh
+```
+
 ## Status
 
 It contains a complete FFI for `sdl.h`, `sdl-gfx.h`, `sdl-ttf.h`, and `sdl-image.h`.
