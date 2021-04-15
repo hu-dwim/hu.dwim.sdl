@@ -9,14 +9,11 @@ SCRIPT_DIR=`dirname "$0"`
 SCRIPT_DIR=`readlink -f ${SCRIPT_DIR}`
 PROJECT_HOME=`readlink -f ${SCRIPT_DIR}/..`
 
-#LISP=${SCRIPT_DIR}/../../sbcl/run-sbcl.sh
-#LISP=`readlink -f ${LISP}`
-
 LISP=sbcl
 
 cd "${PROJECT_HOME}"
 
-echo "*** "`date`" Generating c2ffi spec files for ${PROJECT_HOME}"
+echo "*** "`date`" Generating c2ffi spec files for ${PROJECT_NAME} in ${PROJECT_HOME}"
 
 BUILD_LOG_FILE="/tmp/${PROJECT_NAME}.build-log"
 
@@ -37,15 +34,24 @@ if [ ! -e "build/quicklisp/setup.lisp" ] ; then
 fi
 
 # "call" the lisp part below.
-exec ${LISP} --noinform --end-runtime-options --no-sysinit --no-userinit \
-     --eval "(require :asdf)" --eval "(asdf:load-system :asdf)" \
-     --load "build/quicklisp/setup.lisp" \
-     --eval "(with-open-file (s \"${0}\" :element-type 'character) (read-line s) (load s))" \
-     --end-toplevel-options 2>&1 ${PROJECT_NAME} | tee ${BUILD_LOG_FILE}
+${LISP} --noinform --end-runtime-options --no-sysinit --no-userinit \
+        --eval "(require :asdf)" --eval "(asdf:load-system :asdf)" \
+        --load "build/quicklisp/setup.lisp" \
+        --eval "(with-open-file (s \"${0}\" :element-type 'character) (read-line s) (load s))" \
+        --end-toplevel-options 2>&1 ${PROJECT_NAME} | tee ${BUILD_LOG_FILE}
 
-echo "*** "`date`" Finished generating c2ffi spec files for ${PROJECT_HOME}"
+echo "*** "`date`" About to filter the generated c2ffi spec files for ${PROJECT_NAME}"
 
 ${SCRIPT_DIR}/filter-spec-files.sh
+
+echo "*** "`date`" About to run the tests again for ${PROJECT_NAME}"
+
+${LISP} --noinform --end-runtime-options --no-sysinit --no-userinit \
+        --eval "(require :asdf)" --eval "(asdf:load-system :asdf)" \
+        --load "build/quicklisp/setup.lisp" \
+        --eval "(ql:quickload :projectured.sdl)" \
+        --eval "(quit)" \
+        --end-toplevel-options 2>&1 | tee ${BUILD_LOG_FILE}
 
 # let's quit the shell part before the shell interpreter runs on the lisp stuff below
 exit 0
@@ -96,6 +102,6 @@ exit 0
 
 (ql:quickload *project-name*)
 
-(asdf:test-system *project-name*)
+(ql:quickload :projectured.sdl)
 
 (uiop:quit)
