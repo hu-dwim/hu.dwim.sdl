@@ -3,7 +3,7 @@
 
 #set -o xtrace
 
-PROJECT_NAME=hu.dwim.sdl/fancy
+PROJECT_NAME=hu.dwim.sdl
 
 SCRIPT_DIR=`dirname "$0"`
 SCRIPT_DIR=`readlink -f ${SCRIPT_DIR}`
@@ -44,7 +44,7 @@ echo "*** "`date`" About to filter the generated c2ffi spec files for ${PROJECT_
 
 ${SCRIPT_DIR}/filter-spec-files.sh
 
-echo "*** "`date`" About to run the tests again for ${PROJECT_NAME}"
+echo "*** "`date`" About to run some tests for ${PROJECT_NAME}"
 
 ${LISP} --noinform --end-runtime-options --no-sysinit --no-userinit \
         --eval "(require :asdf)" --eval "(asdf:load-system :asdf)" \
@@ -78,7 +78,7 @@ exit 0
                                      (find-package :keyword)))
 
 (defun nix-includes->c2ffi-args ()
-  (loop :with str = (or (uiop:getenv "NIX_CFLAGS_COMPILE") "")
+  (loop :with str = (uiop:getenv "NIX_CFLAGS_COMPILE")
         :with pieces = (remove "-isystem"
                                (split-sequence:split-sequence #\Space str :remove-empty-subseqs t)
                                :test 'equal)
@@ -86,15 +86,28 @@ exit 0
         :collect "--sys-include"
         :collect el))
 
-(appendf cffi/c2ffi::*c2ffi-extra-arguments*
-         (nix-includes->c2ffi-args))
+(cond
+  ;; NixOS
+  ((uiop:getenv "NIX_CFLAGS_COMPILE")
+   (appendf cffi/c2ffi::*c2ffi-extra-arguments*
+            (nix-includes->c2ffi-args))
 
-;; KLUDGE this is an enormous kludge that is only needed on nixos
-;; because there clang is a wrapper script that defines some extra
-;; include paths. see https://github.com/rpav/c2ffi/pull/89
-(appendf cffi/c2ffi::*c2ffi-extra-arguments*
-         (list "--sys-include"
-               "/nix/store/kaicsq9mskqvs7ww03rpz7cbjiwamh8i-glibc-2.31-dev/include"))
+   ;; KLUDGE this is an enormous kludge that is only needed on nixos
+   ;; because there clang is a wrapper script that defines some extra
+   ;; include paths. see https://github.com/rpav/c2ffi/pull/89
+   (appendf cffi/c2ffi::*c2ffi-extra-arguments*
+            (list "--sys-include"
+                  "/nix/store/kaicsq9mskqvs7ww03rpz7cbjiwamh8i-glibc-2.31-dev/include")))
+  ;; Guix
+  ;; You can use something like this to enter a necessary environment:
+  ;; #!/usr/bin/env bash
+  ;; PACKAGES_FOR_SDL="glibc c2ffi jq clang@11.0.0 llvm@11.0.0 sdl2 sdl2-gfx sdl2-image sdl2-ttf"
+  ;; guix environment --ad-hoc ${PACKAGES_FOR_SDL} gcc-toolchain pkg-config libffi zlib openssl libfixposix graphviz -- bash --init-file <(echo "export LD_LIBRARY_PATH=\$GUIX_ENVIRONMENT/lib; source ~/.bashrc")
+  ((uiop:getenv "GUIX_ENVIRONMENT")
+   (appendf cffi/c2ffi::*c2ffi-extra-arguments*
+            (list "--sys-include"
+                  (concatenate 'string (uiop:getenv "GUIX_ENVIRONMENT")
+                               "/include/")))))
 
 ;; (setf cffi/c2ffi::*trace-c2ffi* t)
 ;; (trace cffi/c2ffi::ensure-spec-file-is-up-to-date
