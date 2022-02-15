@@ -14,7 +14,7 @@ queries=(
     # fashion, i.e. it is sensitive to the order of the definitions
     # (e.g. it filters out struct fields whose type hasn't been seen
     # yet).
-    # TODO delete the location key for smaller diff's
+    # TODO delete the 'location' key for smaller diff's
     '[.[] | select(.location | contains("/types.h") or contains("/stdint-uintn.h") or contains("/stdint-intn.h") or contains("/stddef.h") or test("SDL2/.+\\.h"))]'
     '[.[] | select(.location | contains("SDL2/SDL2_gfxPrimitives.h") or contains("SDL2/SDL2_framerate.h") or contains("SDL2/SDL2_imageFilter.h") or contains("SDL2/SDL2_rotozoom.h"))]'
     '[.[] | select(.location | contains("SDL2/SDL_ttf.h"))]'
