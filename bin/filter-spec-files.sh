@@ -25,8 +25,13 @@ for i in "${!patterns[@]}"; do
     for file in ${patterns[$i]}; do
         if [ -e ${file} ]; then # avoid creating a 'sdl.*.spec' if it didn't match anything
             echo "Running jq --sort-keys '${queries[$i]}' ${file}"
-            jq --sort-keys "${queries[$i]}" ${file} >${file}.filtered
-            mv ${file}.filtered ${file}
+            jq --sort-keys "${queries[$i]}" ${file} >${file}.filtered &&
+                mv ${file}.filtered ${file}
+            # This removes the location entries which will shrink
+            # the diff size, but we also lose useful information,
+            # namely which header file has the definition.
+            jq 'del( .[] .location )' >${file}.filtered &&
+                mv ${file}.filtered ${file}
         fi
     done
 done
