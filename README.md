@@ -53,9 +53,7 @@ this.
 Once the necessary dependencies are available (see below):
 
 ```
-rm -f c2ffi-spec/*.spec &&
-  ./bin/generate-spec-files.sh &&
-  ./bin/filter-spec-files.sh
+./bin/generate-spec-files.sh
 ```
 
 #### On Debian
