@@ -2,6 +2,11 @@
 
 # https://stedolan.github.io/jq/manual/
 
+if command -v guix &> /dev/null; then
+  echo "Guix detected, entering the environment."
+  eval $(guix shell --pure --search-paths jq coreutils)
+fi
+
 patterns=(
     "c2ffi-spec/sdl.*.spec"
     "c2ffi-spec/sdl-gfx.*.spec"
