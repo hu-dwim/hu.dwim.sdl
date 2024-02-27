@@ -31,7 +31,7 @@ ASDF extension does two things:
 1. When needed, it can invoke [c2ffi](https://github.com/rpav/c2ffi)
 to process a C header file and emit a c2ffi spec file (a json file)
 that contains every detail needed to generate an FFI for a given
-platform. But yours truely has run this phase, and checked in the
+platform. But yours truly has run this phase, and checked in the
 resulting spec files into the [c2ffi-spec/](c2ffi-spec/)
 directory. This way users don't need to have a working c2ffi
 executable, nor the SDL dev headers installed.
@@ -44,27 +44,36 @@ their regeneration is automatic and painless.)
 
 ### Regenerate the spec files
 
-This should only be done when the SDL API has some new functionality
-that is needed on the Lisp side. Once the `*.spec` files got
-regenerated, they should be pushed into the git repo; i.e. the users
-of `hu.dwim.sdl` shouldn't need to do this normally.
+This should only need to be done by the project maintainer when the
+SDL API has some new functionality that is needed on the Lisp
+side. Once the `*.spec` files got regenerated, they should be pushed
+into the git repo; i.e. the users of `hu.dwim.sdl` don't need to do
+this.
+
+Once the necessary dependencies are available (see below):
+
+```
+rm -f c2ffi-spec/*.spec &&
+  ./bin/generate-spec-files.sh &&
+  ./bin/filter-spec-files.sh
+```
 
 #### On Debian
 
-This should work, assuming that you have a working `c2ffi` in the
-path:
-
 ```
-sudo apt-get install curl sbcl libsdl2-dev
-rm -f c2ffi-spec/*.spec && ./bin/generate-spec-files.sh
+sudo apt-get install curl sbcl libsdl2-dev jq
 ```
 
 #### On NixOS
 
 ```
 $ nix-shell --pure
-$ rm -f c2ffi-spec/*.spec && ./bin/generate-spec-files.sh
 ```
+
+#### On Guix
+
+Just run the script. It should detect that Guix is available and
+transparently enter a `guix shell` with the necessary packages.
 
 ## Status
 

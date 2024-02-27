@@ -13,6 +13,9 @@ patterns=(
     "c2ffi-spec/sdl-ttf.*.spec"
     "c2ffi-spec/sdl-image.*.spec"
 )
+# one entry for each pattern above (i.e. this should be a multi
+# dimensional array, but this is all the shell fu that i've tolerated
+# into my life...)
 queries=(
     # it's tempting to do [sort_by(.name) | .[] |... for nice
     # diff'ability, but the lisp generator works in a streaming
