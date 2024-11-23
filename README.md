@@ -9,7 +9,7 @@ for http://libsdl.org/ (SDL2).
 
 The alternative projects are partial, while this one uses
 [cffi/c2ffi](https://github.com/cffi/cffi) to automatically generate
-the complete CFFI bindings for the various subsystems of
+a **complete** CFFI binding for the various subsystems of
 [SDL2](http://libsdl.org/).
 
 It only requires vanilla CFFI when used, no extra dependencies.
@@ -31,7 +31,7 @@ ASDF extension does two things:
 1. When needed, it can invoke [c2ffi](https://github.com/rpav/c2ffi)
 to process a C header file and emit a c2ffi spec file (a json file)
 that contains every detail needed to generate an FFI for a given
-platform. But yours truly has run this phase, and checked in the
+platform. Yours truly has run this phase, and checked in the
 resulting spec files into the [c2ffi-spec/](c2ffi-spec/)
 directory. This way users don't need to have a working c2ffi
 executable, nor the SDL dev headers installed.
@@ -48,7 +48,7 @@ This should only need to be done by the project maintainer when the
 SDL API has some new functionality that is needed on the Lisp
 side. Once the `*.spec` files got regenerated, they should be pushed
 into the git repo; i.e. the users of `hu.dwim.sdl` don't need to do
-this.
+this step.
 
 Once the necessary dependencies are available (see below):
 
@@ -71,9 +71,10 @@ $ nix-shell --pure
 #### On Guix
 
 Just run the script. It should detect that Guix is available and
-transparently enter a `guix shell` with the necessary packages.
+transparently enter a `guix shell` with the necessary dependencies.
 
 ## Status
 
-It contains a complete FFI for `sdl.h`, `sdl-gfx.h`, `sdl-ttf.h`, and `sdl-image.h`.
+It contains a complete FFI for `sdl.h`, `sdl-gfx.h`, `sdl-ttf.h`, and `sdl-image.h`
+for SDL2.
 Not much has been added yet to lispify the SDL API, but the CFFI binding part is complete.
